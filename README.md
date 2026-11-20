@@ -1,5 +1,5 @@
 # qrstream
-
+A fun experiment testing data transmission over QR
 Convert a PDF (or any file) into a video of tiled QR codes, and back again.
 Pure Python + OpenCV: no FFmpeg binary, no Base64, works fully offline.
 
