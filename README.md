@@ -43,6 +43,21 @@ python qrstream.py codecs    [--resolution 1920x1080]
 | `benchmark` | Search for the fastest configuration that decodes 100% on this machine, then print a recommended `encode` command |
 | `codecs` | List the codecs `cv2.VideoWriter` can actually open here, and whether they are lossless |
 
+```
+python qrstream.py encode doc.pdf out.mp4 --module-px 4 --fec 30
+python qrstream.py decode out.mp4 recovered.pdf
+```
+
+MP4 normally only supports lossy codecs, which blur small QR modules, so the defaults can fail. I haven't run this on MP4. The built-in verify step will tell you straight away: `VERIFY OK` means it's fine, `VERIFY FAILED` means use the safer settings below.
+
+If it fails, use bigger and fewer QRs with more recovery:
+
+```
+python qrstream.py encode doc.pdf out.mp4 --module-px 6 --grid 3x2 --version 20 --ecc M --fec 40 --redundancy 2
+```
+
+`codecs` and `benchmark` only test `.avi` and `.mkv`, so they won't tell you what works for MP4. If you can use `.avi` or `.mkv`, they're much more reliable and allow the default settings.
+
 ### Main `encode` options
 
 | Option | Default | Meaning |
